@@ -14,9 +14,9 @@ public class Rotated_Infinite_variation {
 		// First Find target in First half -> If not present then -> Find in second half
 		
 		int index = 0;
-		
-		index = searchInRotated(test, 0, peak, target);
-		if(index == -1) {
+		if(target > test[0]) {
+			index = searchInRotated(test, 0, peak, target);
+		}else {
 			index = searchInRotated(test, peak + 1, test.length -1,  target);
 		}
 		
