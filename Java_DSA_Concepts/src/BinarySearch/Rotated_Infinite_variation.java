@@ -2,22 +2,36 @@ package BinarySearch;
 
 public class Rotated_Infinite_variation {
 	public static void main(String[] args) {
-		int[] test1 = new int[] {5,6,7,8,9,10,1,2,3,4};
-		int[] test2 = new int[] {1,2,3,4,5,6,7,8,9,10};
-		int[] test3 = new int[] {11,5,6,7,8,9,10};
-		int peak1 = findPivot(test1);
-		int peak2 = findPivot(test2);
-		int peak3 = findPivot(test3);
+		int[] test = new int[] {5,6,7,8,9,10,1,2,3,4};
+		int peak = findPivot(test);
 		
-		System.out.println(test1[peak1]);
-		System.out.println(test2[peak2]);
-		System.out.println(test3[peak3]);
+		int target = 10;
+		
+		// Now Find the target element in rotated binary search
+		
+		// As Array is split in two half ->  0 to peak AND peak to last
+		
+		// First Find target in First half -> If not present then -> Find in second half
+		
+		int index = 0;
+		
+		index = searchInRotated(test, 0, peak, target);
+		if(index == -1) {
+			index = searchInRotated(test, peak + 1, test.length -1,  target);
+		}
+		
+		System.out.println("Fond " + target + " at index " + index);
+		
 	}
 	
 	static int searchInRotated(int[] arr, int start, int end, int target) {
-		
+		// Binary Search in the Array Half's
 		while(start <= end) {
 			int mid = start + (end - start)/2;
+			
+			if(arr[mid] == target) {
+				return mid;
+			}
 			
 			if(target > arr[mid]) {
 				// Target is after MID
@@ -30,7 +44,7 @@ public class Rotated_Infinite_variation {
 		return -1;
 	}
 	
-	
+	// This code works only for non duplicate elements
 	static int findPivot(int[] arr) {
 		
 		int start = 0;
