@@ -16,7 +16,11 @@ public class Order_Agnostic_BS {
 			return false;
 		}
 		
-		boolean trend = arr[start] < arr[end];
+		
+		// Use == to handle duplicate
+		// it assign default ascending if equals
+		
+		boolean trend = arr[start] <= arr[end];
 		
 		while(start <= end) {
 			int mid = start + (end - start) / 2;
