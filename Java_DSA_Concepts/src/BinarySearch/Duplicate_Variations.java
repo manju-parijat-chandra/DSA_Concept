@@ -1,6 +1,6 @@
 package BinarySearch;
 
-public class Boundary_Duplicate_Variations {
+public class Duplicate_Variations {
 	public static void main(String[] args) {
 		int[] test = new int[] {1,2,3,4,4,5,6,7,8};
 		
