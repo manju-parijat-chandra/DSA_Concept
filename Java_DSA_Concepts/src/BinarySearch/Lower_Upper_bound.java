@@ -2,14 +2,19 @@ package BinarySearch;
 
 public class Lower_Upper_bound {
 	public static void main(String[] args) {
-		int[] test = new int[] {1,2,3,4,6,7,8};
-		int target = 5;
+		
+		// Handles duplicates by ignoring matches:
+		// 1. Floor: Pushes 'end' to the largest number smaller than target.
+		// 2. Ceiling: Pushes 'start' to the smallest number larger than target.
+		
+		int[] test = new int[] {1,2,3,4,4,4,4,6,7,8};
+		int target = 4;
 		
 		int floor = bSearch(test, target, true);
 		int ceiling = bSearch(test,target,false);
 		
-		System.out.println("Floor -> " + test[floor]);
-		System.out.println("Ceiling -> " + test[ceiling]);
+		System.out.println("Floor -> " + test[floor] + " at index " + floor);
+		System.out.println("Ceiling -> " + test[ceiling] + " at index " + ceiling);
 	}
 	
 	static int bSearch(int[] arr, int target, boolean isFloor) {
