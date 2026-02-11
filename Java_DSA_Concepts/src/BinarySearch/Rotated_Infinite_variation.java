@@ -4,13 +4,14 @@ public class Rotated_Infinite_variation {
 	public static void main(String[] args) {
 		// int[] test = new int[] {5,6,7,8,9,10,1,2,3,4};
 		
-		int[] test = new int[] {1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1};
+		int[] test = new int[] {1};
 		
 		int peak = findPivotInDuplicate(test);
 		
+		if(peak != -1) {
 		System.out.println("Peak " + test[peak] + " at index " + peak);
-		
-		int target = 2;
+		}
+		int target = 1;
 		
 		// Now Find the target element in rotated binary search
 		
@@ -21,10 +22,10 @@ public class Rotated_Infinite_variation {
 		int index = 0;
 		
 		// If target is >= start element then array is present in First half 
-		if(target >= test[0]) {
-			index = searchInRotated(test, 0, peak, target);
+		if(target <= test[test.length - 1]) {
+			index = searchInRotated(test, peak + 1, test.length - 1, target);
 		}else {
-			index = searchInRotated(test, peak + 1, test.length -1,  target);
+			index = searchInRotated(test, 0, peak,  target);
 		}
 		
 		System.out.println("Fond " + target + " at index " + index);
@@ -77,6 +78,16 @@ public class Rotated_Infinite_variation {
 			
 			// Decide which side to search:
 			
+			// 4 Sub cases - 
+			// a ->  start > mid ? -> means mid is in right side array. therefore we should search for peak in left side
+			//                                                                                  **** end = mid - 1 ****
+			
+			// b -> start == mid  // Possible only when end is next to start. 
+			// -> This means Left side doesn't contain our peak element. so search in right - > *** start = mid + 1 ***
+			
+			// c -> mid > start ? -> means left side array doens't have peak i.e ->             **** start = mid + 1; ****
+			
+			
             if(arr[start] > arr[mid]){
             	// Left side is unsorted, so peak must be there
                 end = mid - 1;
@@ -86,6 +97,10 @@ public class Rotated_Infinite_variation {
             	// Left side is sorted, so peak must be on the right
                 start = mid + 1;
             }
+            
+			// when mid == end // Possible only when start and mid are at same position 
+			// -> next iteration start = mid + 1. and returns - 1. 
+			// as this case could not meet the requirement for rotated array means array is not rotated
 			
 		}
 		
@@ -114,6 +129,16 @@ public class Rotated_Infinite_variation {
 				return mid - 1;
 			}
 			
+			
+//			When the values at start, mid, and end are equal, Binary Search cannot decide which way to go. Your code handles this by:
+//				Verifying the edges aren't the peak.
+//				Shrinking the search window by 1 on both sides.
+//				Continuing the binary search on the smaller window.
+
+			
+			
+			
+			
 			// Case 3 -> Since it contains Duplicate elements . if (Start - End - Mid) are same . (Skip start and end) 
 			// Check start and end if those are peak element. Otherwise It's safe to SKIP
 			
@@ -128,25 +153,38 @@ public class Rotated_Infinite_variation {
 				start ++;
 				
 				// Check if end is not a peak . and safe to SKIP
-				if(end > start && arr[end] > arr[end-1]) {
+				if(end > start && arr[end - 1] > arr[end]) {
 					// End is Peak
-					return end;
+					return end -1;
 				}
 				end --;
-			}
-			
-			// If start > mid . i.e - mid is currently in second half AND Therefore Peak lies left side
-			
-			//element at start is equal to mid and  mid is greater than end -> in this case my peak is left side.  
-			// Therefore we can not skip this part.. so include in condition
-			
-			if(arr[start] > arr[mid] || arr[start] == arr[mid] && arr[mid] > arr[end]) {
-				end = mid - 1;
-			}else {
-				// in this case mid could be peak or peak is present to right side of mid
+			}else
+				
+				// Remaining condition 
+				// Decide where to search when element at start, mid are equal  AND  element at mid > end 
+				// in this case peak is after mid -> start = mid + 1
+				
+			if(arr[mid] > arr[start] || arr[start] == arr[mid] && arr[mid] > arr[end]){
 				start = mid + 1;
+			}else {
+				// remaining case
+				end = mid - 1;
 			}
 			
+			
+			// Relationship                    ||   Logic Status	         || Where is the Peak?	||    Direction    ||  Array
+			
+			// start < mid	                   ||   Left side is Sorted      ||	   Right Side	    ||    Right        || [5, 6, 7, 8, 9, 1, 2]
+			// start == mid AND mid > end	   ||   Right side is Broken	 ||    Right Side	    ||    Right        || [2, 2, 2, 9, 1]
+			//                                     ********* OR *********
+			// start > mid	                   ||   Left side is Broken	     ||    Left Side	    ||    Left         || [9, 10, 1, 2, 3]
+			// start == mid AND mid < end	   ||   Right side is Sorted	 ||    Left Side	    ||    Left         || [2, 9, 2, 2, 3]
+			
+			
+			
+			// Remaining case when start and mid and end are at same position. 
+			// Equal by value is already covered before
+			// this means peak is at the end so we return -1 which will be handled later
 			
 		}
 		
@@ -154,3 +192,10 @@ public class Rotated_Infinite_variation {
 	}
 	
 }
+
+
+
+
+
+
+
