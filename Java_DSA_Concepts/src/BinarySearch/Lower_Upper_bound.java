@@ -1,5 +1,9 @@
 package BinarySearch;
 
+// Given a sorted integer array and a target value, find the Strict Floor and Strict Ceiling of the target. 
+// Unlike standard bounds, a strict neighbor cannot be equal to the target itself.
+
+
 public class Lower_Upper_bound {
 	public static void main(String[] args) {
 		
@@ -48,6 +52,27 @@ public class Lower_Upper_bound {
 		}
 		
 		
+		/*
+		 *  RELATIONSHIP & LOGIC TABLE (Strict Floor/Ceiling)
+		 *  ========================================================================================
+		 *  Relationship       || isFloor Logic       || isCeiling Logic     || Reason
+		 *  -------------------||---------------------||---------------------||---------------------
+		 *  arr[mid] == target || end = mid - 1       || start = mid + 1     || Excludes target to 
+		 *                     ||                     ||                     || find STRICT neighbor.
+		 *  -------------------||---------------------||---------------------||---------------------
+		 *  arr[mid] < target  || start = mid + 1     || start = mid + 1     || Look right for closer 
+		 *                     ||                     ||                     || value.
+		 *  -------------------||---------------------||---------------------||---------------------
+		 *  arr[mid] > target  || end = mid - 1       || end = mid - 1       || Look left for closer 
+		 *                     ||                     ||                     || value.
+		 *  -------------------||---------------------||---------------------||---------------------
+		 *  Loop Ends          || return end          || return start        || Pointers crossed; 
+		 *  (start > end)      || (Largest < target)  || (Smallest > target) || bounds are found.
+		 *  ========================================================================================
+		 */
+		
+		
+		
 		// Handle is Element is not present
 		// or element is at first or last 
 		
@@ -64,5 +89,24 @@ public class Lower_Upper_bound {
 				return start;
 			}
 		}
+		
+		/*
+		 *  BOUNDARY & OUT-OF-BOUNDS TABLE
+		 *  =========================================================================================
+		 *  Scenario            || Pointer Position      || Logic/Action          || Returned Index
+		 *  --------------------||-----------------------||-----------------------||-----------------
+		 *  Target too SMALL    || end = -1              || Floor: end + 1        || 0 (First Index)
+		 *  (No Floor exists)   ||                       ||                       || 
+		 *  --------------------||-----------------------||-----------------------||-----------------
+		 *  Target too LARGE    || start = arr.length    || Ceiling: start - 1    || Last Index
+		 *  (No Ceiling exists) ||                       ||                       || 
+		 *  --------------------||-----------------------||-----------------------||-----------------
+		 *  Inside Bounds       || end >= 0              || Floor: return end     || end (Valid index)
+		 *  (Standard Case)     || start < arr.length    || Ceiling: return start || start (Valid index)
+		 *  =========================================================================================
+		 */
+
+
+
 	}
 }

@@ -1,5 +1,9 @@
 package BinarySearch;
 
+// Given a sorted integer array and a target value, determine if the target exists in the array. 
+// The array is guaranteed to be sorted, but you do not know if it is sorted in ascending (increasing) or descending (decreasing) order.
+
+
 public class Order_Agnostic_BS {
 	public static void main(String[] args) {
 		
@@ -22,6 +26,21 @@ public class Order_Agnostic_BS {
 		
 		boolean trend = arr[start] <= arr[end];
 		
+		/*
+		 *  TREND IDENTIFICATION TABLE
+		 *  ========================================================================================
+		 *  Condition             || Result (trend)      || Meaning             || Default Handling
+		 *  -------------------   ||---------------------||---------------------||---------------------
+		 *  arr[start] < arr[end] || true                || Ascending Order     || Standard BS logic.
+		 *  -------------------   ||---------------------||---------------------||---------------------
+		 *  arr[start] > arr[end] || false               || Descending Order    || Reverse BS logic.
+		 *  -------------------   ||---------------------||---------------------||---------------------
+		 *  arr[start] == arr[end]|| true (Default)      || Equal Elements      || Handles single-element 
+		 *                        ||                     ||                     || or all-duplicate arrays.
+		 *  ========================================================================================
+		 */
+
+		
 		while(start <= end) {
 			int mid = start + (end - start) / 2;
 			
@@ -43,6 +62,23 @@ public class Order_Agnostic_BS {
 				}
 			}
 		}
+		
+		/*
+		 *  SEARCH MOVEMENT TABLE (After mid calculation)
+		 *  ========================================================================================
+		 *  Scenario           || if (trend == true)  || if (trend == false) || Reason
+		 *                     || (Ascending)         || (Descending)        ||
+		 *  -------------------||---------------------||---------------------||---------------------
+		 *  target > arr[mid]  || start = mid + 1     || end = mid - 1       || In Descending, larger 
+		 *                     ||                     ||                     || values are on the LEFT.
+		 *  -------------------||---------------------||---------------------||---------------------
+		 *  target < arr[mid]  || end = mid - 1       || start = mid + 1     || In Descending, smaller 
+		 *                     ||                     ||                     || values are on the RIGHT.
+		 *  -------------------||---------------------||---------------------||---------------------
+		 *  target == arr[mid] || return true         || return true         || Target found!
+		 *  ========================================================================================
+		 */
+
 		
 		return false;
 	}

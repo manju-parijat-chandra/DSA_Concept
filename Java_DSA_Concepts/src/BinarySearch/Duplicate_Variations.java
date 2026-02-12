@@ -1,5 +1,9 @@
 package BinarySearch;
 
+// Given an array of integers sorted in ascending order, find the total number of occurrences of a given target value.
+
+
+
 public class Duplicate_Variations {
 	public static void main(String[] args) {
 		int[] test = new int[] {1,2,3,4,4,5,6,7,8};
@@ -53,6 +57,17 @@ public class Duplicate_Variations {
 				end = mid - 1;
 			}
 		}
+		
+		// Relationship       ||   Logic Status             || Search Direction   || Reason
+		// ----------------   ||----------------------------||--------------------||-------------------------------------------
+		// arr[mid] == target || Potential Answer Found     || Shrink Range       || Store index in ansIdx. 
+		//		              ||                            ||                    || If isFirst: end = mid-1 (Look Left)
+		//		              ||                            ||                    || If !isFirst: start = mid+1 (Look Right)
+		// ----------------   ||----------------------------||--------------------||-------------------------------------------
+		// target > mid       || Target is in Right Half    || start = mid + 1    || Standard BS: discard left side.
+		// ----------------   ||----------------------------||--------------------||-------------------------------------------
+		// target < mid       || Target is in Left Half     || end = mid - 1      || Standard BS: discard right side.
+
 		
 		
 		return ansIdx;
