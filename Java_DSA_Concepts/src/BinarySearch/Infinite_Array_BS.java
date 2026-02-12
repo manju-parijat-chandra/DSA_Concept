@@ -1,5 +1,7 @@
 package BinarySearch;
 
+
+// Works with Duplicate elements
 public class Infinite_Array_BS {
 	public static void main(String[] args) {
 		
@@ -25,6 +27,7 @@ public class Infinite_Array_BS {
 			
 			System.out.println("Start - " + start + " End - " + end);
 		}
+		
 		boolean found = bSearch_Infinite(arr, start, end, target);
 		System.out.print(found);
 	}
