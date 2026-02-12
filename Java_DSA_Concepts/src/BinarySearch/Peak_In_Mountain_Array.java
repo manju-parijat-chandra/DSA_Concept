@@ -2,9 +2,11 @@ package BinarySearch;
 
 public class Peak_In_Mountain_Array {
 	public static void main(String[] args) {
-		int[] test = new int[] {2,1};
+		int[] test = new int[] {1,3,3,2};
 		
-		System.out.print(findPeak(test));
+		int peakIdx = findPeakInDuplicate(test);
+		
+		System.out.print("Peak -> " + test[peakIdx] + " at Index -> " + peakIdx);
 	}
 	
 	static int findPeak(int[] arr) {
@@ -48,4 +50,57 @@ public class Peak_In_Mountain_Array {
 		// At the end, start == end, both pointing to the largest element.
 		return end; // return start
 	}
+	
+	static int findPeakInDuplicate(int[] arr) {
+		int start = 0;
+		int end = arr.length - 1;
+		
+		while(start < end) {
+			int mid = start + (end - start) / 2;
+			
+			if(arr[mid] > arr[mid+1]) {
+				end = mid;
+			}else if(arr[mid] < arr[mid+1]) {
+				start = mid + 1;
+			}else {
+				// Check if we can skip start.
+				if(start < end && arr[start] > arr[start + 1]) {
+					return start;
+				}
+				start++;
+				
+				//Check if we can skip end
+				if(end > start && arr[end] > arr[end - 1]) {
+					return end;
+				}
+				end --;
+			}
+			
+			/*
+			 *  PLATEAU PEAK LOGIC
+			 *  ====================================================================================================
+			 *  Condition            || Logical Meaning             || Action             || Example
+			 *  ---------------------||-----------------------------||--------------------||------------------------
+			 *  arr[start] > start+1 || Start is the highest point. || Return start       || [9, 8, 7] -> Peak = 9
+			 *  ---------------------||-----------------------------||--------------------||------------------------
+			 *  arr[end] > end-1     || End is the highest point.   || Return end         || [1, 2, 9] -> Peak = 9
+			 *  ---------------------||-----------------------------||--------------------||------------------------
+			 *  No 'if' triggers     || Plateau is just a slope or  || start++, end--     || [1, 5, 5, 5, 2]
+			 *                       || we haven't hit the edge yet.|| (Keep shrinking)   ||
+			 *  ====================================================================================================
+			 */
+
+		}
+		return start;
+	}
+	
 }
+
+
+
+
+
+
+
+
+
