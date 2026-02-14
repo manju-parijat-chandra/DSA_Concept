@@ -63,3 +63,10 @@ public class Binary_Search {
 		return false;
 	}
 }
+
+
+// *********************************************************************************************************************************
+// If -> While(start < end)
+//         --> start and mid at same place whereas end at (start or mid) + 1
+// If -> While(start <= end)
+//         --> mid and end at same place Whereas start at (end or mid) + 1
