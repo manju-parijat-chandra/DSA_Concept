@@ -67,6 +67,11 @@ public class Binary_Search {
 
 // *********************************************************************************************************************************
 // If -> While(start < end)
-//         --> start and mid at same place whereas end at (start or mid) + 1
+//         --> Last Loop   ->>>> start and mid at same place whereas end at (start or mid) + 1
+//         --> At exit     ->>>> start and end at same place (as Last execution of condition is start = mid + 1)
+//         --> Therefore mid was left behind at (start or end) - 1         >>> ([(Start = End), mid at - 1 position]
+
 // If -> While(start <= end)
-//         --> mid and end at same place Whereas start at (end or mid) + 1
+//         --> Last Loop   ->>>> start and mid and end all at same place
+//         --> At exit     ->>>> start at (end or mid) + 1 (as last execution was start = mid + 1)
+//         --> Therefore mid never changed after it reaches equals to end   >>> [(Mid = End),Start at + 1 Position]
