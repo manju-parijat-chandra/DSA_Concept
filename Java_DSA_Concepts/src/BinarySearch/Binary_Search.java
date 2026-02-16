@@ -58,7 +58,6 @@ public class Binary_Search {
 // ----------------||----------------------------||--------------------||-------------------------------------------------||-----------------------------
 // target < mid    || Target is in Left Half     || end = mid - 1      || All elements after mid are larger than target.  || 12 < 13    -> [12,13]
 			
-
 		}
 		return false;
 	}
